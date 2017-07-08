@@ -1,0 +1,13 @@
+{
+    "name": "wmateam/pay_ir",
+    "description": "Pay.ir php package",
+    "require": {
+        "wmateam/curling": "^0.7.4"
+    },
+    "authors": [
+        {
+            "name": "Mohammad Javad Afkari",
+            "email": "afkari.1370@gmail.com"
+        }
+    ]
+}
