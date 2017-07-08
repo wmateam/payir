@@ -1,13 +1,27 @@
 {
-    "name": "wmateam/pay_ir",
-    "description": "Pay.ir php package",
-    "require": {
-        "wmateam/curling": "^0.7.4"
-    },
-    "authors": [
-        {
-            "name": "Mohammad Javad Afkari",
-            "email": "afkari.1370@gmail.com"
-        }
-    ]
+  "name": "wmateam/pay_ir",
+  "description": "Pay.ir php package",
+  "keywords": ["curl", "payment", "pay.ir", "php"],
+  "homepage": "https://github.com/wmateam/payir",
+  "type": "library",
+  "version": "0.7.3",
+  "minimum-stability": "stable",
+  "authors": [
+    {
+      "name": "Mohammad Javad Afkari",
+      "email": "afkari.1370@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.4",
+    "wmateam/curling": "^0.7.4"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "4.0.*"
+  },
+  "autoload": {
+    "psr-4": {
+      "wmateam\\payIr\\": "src"
+    }
+  }
 }
