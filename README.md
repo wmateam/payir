@@ -3,7 +3,7 @@
 # Pay.ir php package
 # [Wiki and Docs](https://github.com/wmateam/payir/wiki)
 
-### Sample
+### New payment
 ```php
 $apiKey = 'test';
 $redirectUrl = 'http://localhost:2030/verify.php';
@@ -15,4 +15,15 @@ $amount = 1000;//Rial
 $transaction = $payIr->newPayment($amount, $factorNumber);
 $transactionID = $transaction->getTransactionID();
 $gateway = $transaction->getGateway();
+```
+
+### verify transaction
+```php
+$apiKey = 'test';
+$redirectUrl = 'http://localhost:2030/verify.php';
+$payIr = new \wmateam\payIr\PayIr($apiKey, $redirectUrl);
+
+$verify = $payIr->verifyPayment($_POST['transId']);
+$status = $verify->status;
+$amount = $verify->amount;
 ```
