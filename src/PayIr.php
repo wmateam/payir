@@ -34,7 +34,7 @@ class PayIr
     /**
      * @const SANDBOX  payment sandbox
      */
-    const SANDBOX = self::GATE . 'test/';
+    const SANDBOX = 'https://pay.ir/payment/test/';
 
     /**
      * PayIr constructor.
