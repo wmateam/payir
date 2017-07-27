@@ -13,7 +13,7 @@ class PayirException extends Exception
     const NEW_PAYMENT = 0;
     const VERIFY_PAYMENT = 1;
     const INTERNAL_ERROR = -1;
-    const NEW_PAYMENT_ERROR = [
+    protected $newPaymentError = [
         -1 => 'Api is required',
         -2 => 'Amount is required',
         -3 => 'Amount must be a digits',
@@ -24,7 +24,7 @@ class PayirException extends Exception
         'failed' => 'Failed transaction',
         0 => 'Api is required'
     ];
-    const VERIFY_PAYMENT_ERROR = [
+    protected $verifyPaymentError = [
         -1 => 'Api is required',
         -2 => 'Transaction ID (transId) is required',
         -3 => 'Api and Gateway are different',
@@ -41,10 +41,10 @@ class PayirException extends Exception
      */
     public function __construct($message, $code, Exception $previous = null, $type = PayirException::NEW_PAYMENT)
     {
-        if ($type === self::NEW_PAYMENT && !empty(self::NEW_PAYMENT_ERROR[$code])) {
-            parent::__construct(self::NEW_PAYMENT_ERROR[$code], $code, $previous);
-        } else if ($type === self::VERIFY_PAYMENT && !empty(self::VERIFY_PAYMENT_ERROR[$code])) {
-            parent::__construct(self::VERIFY_PAYMENT_ERROR[$code], $code, $previous);
+        if ($type === self::NEW_PAYMENT && !empty($this->newPaymentError[$code])) {
+            parent::__construct($this->newPaymentError[$code], $code, $previous);
+        } else if ($type === self::VERIFY_PAYMENT && !empty($this->verifyPaymentError[$code])) {
+            parent::__construct($this->verifyPaymentError[$code], $code, $previous);
         } else if ($code === self::INTERNAL_ERROR) {
             parent::__construct('Internal Error', $code, $previous);
         } else {
