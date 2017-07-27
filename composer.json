@@ -1,5 +1,5 @@
 {
-  "name": "wmateam/pay_ir",
+  "name": "wmateam/payir",
   "description": "Pay.ir php package",
   "keywords": ["curl", "payment", "pay.ir", "php"],
   "homepage": "https://github.com/wmateam/payir",
