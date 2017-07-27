@@ -4,9 +4,9 @@
  * Date: 7/8/17
  * Time: 7:52 PM
  */
+
 namespace wmateam\payIr;
-require '../vendor/autoload.php';
-use wmateam\curling\CurlingException;
+
 use wmateam\curling\CurlRequest;
 
 class PayIr
@@ -34,7 +34,7 @@ class PayIr
     /**
      * @const SANDBOX  payment sandbox
      */
-    const SANDBOX = 'https://pay.ir/payment/test/';
+    const SANDBOX = self::GATE . 'test/';
 
     /**
      * PayIr constructor.
@@ -48,6 +48,8 @@ class PayIr
     {
         $this->apiKey = $apiKey;
         $this->redirectUrl = $redirectUrl;
+        if ($this->apiKey == 'test')
+            $testMode = true;
         if ($testMode) $this->base = self::SANDBOX;
         else $this->base = self::GATE;
         return $this;
@@ -66,17 +68,17 @@ class PayIr
      * @param $response
      * @throws PayirException
      */
-    protected function interceptor($response)
+    protected function interceptor($response, $type)
     {
         if (is_null($response))
-            throw new PayirException('jsonResponse is null', PayirException::INTERNAL_ERROR);
+            throw new PayirException('jsonResponse is null', PayirException::INTERNAL_ERROR, null, $type);
         if (!$response->status)
-            throw new PayirException($response->errorMessage, $response->errorCode);
+            throw new PayirException($response->errorMessage, $response->errorCode, null, $type);
     }
 
     /**
-     * @param $amount
-     * @param null $factorNumber
+     * @param integer $amount
+     * @param (null|integer|string) $factorNumber
      * @return PayIrTransaction
      */
     public function newPayment($amount, $factorNumber = null)
@@ -88,7 +90,25 @@ class PayIr
             'factorNumber' => $factorNumber
         ]));
         $jsonResponse = $response->getJson();
-        $this->interceptor($jsonResponse);
+        $this->interceptor($jsonResponse, PayirException::NEW_PAYMENT);
         return new PayIrTransaction($jsonResponse->transId, $this->base);
+    }
+
+    /**
+     * @param integer $transactionId
+     * @return object
+     */
+    public function verifyPayment($transactionId)
+    {
+        $this->handler = new CurlRequest($this->base . 'verify');
+        $response = $this->handler->post($this->postBody([
+            'transId' => $transactionId,
+        ]));
+        $jsonResponse = $response->getJson();
+        $this->interceptor($jsonResponse, PayirException::VERIFY_PAYMENT);
+        return (object)[
+            'status' => $jsonResponse->status,
+            'amount' => intval($jsonResponse->amount)
+        ];
     }
 }
