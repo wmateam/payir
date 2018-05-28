@@ -12,6 +12,7 @@
       "email": "wmateam@gmail.com"
     }
   ],
+  "license": "MIT",
   "require": {
     "php": ">=5.4",
     "wmateam/curling": "^0.7.4"
