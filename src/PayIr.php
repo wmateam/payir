@@ -34,7 +34,7 @@ class PayIr
     /**
      * @const SANDBOX  payment sandbox
      */
-    const SANDBOX = 'https://pay.ir/payment/test/';
+    const SANDBOX = 'https://pay.ir/payment/';
 
     /**
      * PayIr constructor.
@@ -48,10 +48,9 @@ class PayIr
     {
         $this->apiKey = $apiKey;
         $this->redirectUrl = $redirectUrl;
-        if ($this->apiKey == 'test')
-            $testMode = true;
-        if ($testMode) $this->base = self::SANDBOX;
-        else $this->base = self::GATE;
+        $this->base = self::GATE;
+
+
         return $this;
     }
 

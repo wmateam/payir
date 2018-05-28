@@ -4,7 +4,7 @@
   "keywords": ["curl", "payment", "pay.ir", "php"],
   "homepage": "https://github.com/wmateam/payir",
   "type": "library",
-  "version": "1.0",
+  "version": "1.1",
   "minimum-stability": "stable",
   "authors": [
     {
